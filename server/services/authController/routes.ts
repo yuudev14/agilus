@@ -9,7 +9,7 @@ export class AuthRoutes extends AuthController {
   getRoutes() {
     const route = express.Router();
 
-    route.get("/sample", this.register);
+    route.post("/", this.register);
 
     return route;
   }

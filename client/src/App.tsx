@@ -1,15 +1,7 @@
-import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import axios from "axios";
 
 function App() {
-  useEffect((): void => {
-    (async () => {
-      const test = await axios.get("/api/auth/sample");
-      console.log(test);
-    })();
-  }, []);
   return (
     <div className="App">
       <header className="App-header">
