@@ -7,10 +7,21 @@ export class AuthManager {
     this.authRepository = getRepository(User);
   }
 
-  public async findUser(username: string, email: string): Promise<User> {
+  public async findUserForRegister(
+    username: string,
+    email: string
+  ): Promise<User> {
     return this.authRepository
       .createQueryBuilder("user")
       .where("username = :username OR email = :email", { username, email })
+      .getOne();
+  }
+  public async findUserForLogin(usernameOrEmail: string): Promise<User> {
+    return this.authRepository
+      .createQueryBuilder("user")
+      .where("username = :usernameOrEmail OR email = :usernameOrEmail", {
+        usernameOrEmail,
+      })
       .getOne();
   }
   public async register(data): Promise<User> {

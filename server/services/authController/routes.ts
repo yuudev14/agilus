@@ -10,6 +10,7 @@ export class AuthRoutes extends AuthController {
     const route = express.Router();
 
     route.post("/", this.register);
+    route.get("/", this.login);
 
     return route;
   }
