@@ -6,7 +6,7 @@ import axios from "axios";
 function App() {
   useEffect((): void => {
     (async () => {
-      const test = await axios.get("/api");
+      const test = await axios.get("/api/auth/sample");
       console.log(test);
     })();
   }, []);
