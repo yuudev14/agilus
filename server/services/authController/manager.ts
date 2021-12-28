@@ -7,6 +7,13 @@ export class AuthManager {
     this.authRepository = getRepository(User);
   }
 
+  public async findUser(column, value): Promise<User> {
+    return this.authRepository
+      .createQueryBuilder("user")
+      .where(`${column} = :${column}`, { [column]: value })
+      .getOne();
+  }
+
   public async findUserForRegister(
     username: string,
     email: string

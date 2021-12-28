@@ -9,6 +9,16 @@ export class AuthController {
     this.manager = new AuthManager();
   }
 
+  readonly checkUser = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    const { column, value } = req.query;
+    const user = await this.manager.findUser(column, value);
+    if (user) return res.send(false);
+    return res.send(true);
+  };
+
   readonly register = async (
     req: Request,
     res: Response
@@ -27,9 +37,14 @@ export class AuthController {
           password: encryptedPassword,
         });
         const token = generateToken(registeredUser.id);
+        res.cookie("agilus_jwt", token);
         return res.send({
-          user: registeredUser,
-          token,
+          user: {
+            username: registeredUser.username,
+            email: registeredUser.email,
+            firstName: registeredUser.firstName,
+            lastName: registeredUser.lastName,
+          },
         });
       }
       return res.status(403).send({ err: "user already exist" });
@@ -51,9 +66,14 @@ export class AuthController {
         );
         if (decryptPassword) {
           const token = generateToken(user.id);
+          res.cookie("agilus_jwt", token);
           return res.send({
-            user,
-            token,
+            user: {
+              username: user.username,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            },
           });
         }
         return res.status(403).send({ err: "wrong username" });

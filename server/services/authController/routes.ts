@@ -11,6 +11,7 @@ export class AuthRoutes extends AuthController {
 
     route.post("/", this.register);
     route.get("/", this.login);
+    route.get("/user", this.checkUser);
 
     return route;
   }
