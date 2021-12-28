@@ -11,7 +11,9 @@ export class AuthRoutes extends AuthController {
     const route = express.Router();
 
     route.post("/", this.register);
-    route.get("/", validateToken, this.loginOrValidate);
+    route.get("/", this.login);
+    route.get("/token", validateToken, this.validateToken);
+    route.delete("/", this.logout);
     route.get("/user", this.checkUser);
 
     return route;

@@ -1,11 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { authStateType } from "../../types/types";
-import { registerAction, validateTokenAction } from "../actions/authActions";
+import {
+  loginAction,
+  logoutAction,
+  registerAction,
+  validateTokenAction,
+} from "../actions/authActions";
 
 const initialState: authStateType<null | boolean> = {
   auth: null,
   user: {},
   loading: false,
+  errors: {},
 };
 
 const authSlicers = createSlice({
@@ -21,6 +27,26 @@ const authSlicers = createSlice({
         auth: true,
         user: action.payload ? action.payload : {},
         loading: false,
+        errors: {},
+      };
+    });
+    builder.addCase(loginAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(loginAction.fulfilled, (_, action) => {
+      return {
+        auth: true,
+        user: action.payload ? action.payload : {},
+        loading: false,
+        errors: {},
+      };
+    });
+    builder.addCase(loginAction.rejected, (_, action: any) => {
+      return {
+        auth: false,
+        user: {},
+        loading: false,
+        errors: action.payload,
       };
     });
     builder.addCase(validateTokenAction.pending, (state) => {
@@ -28,10 +54,17 @@ const authSlicers = createSlice({
     });
     builder.addCase(validateTokenAction.fulfilled, (_, action) => {
       return {
-        auth: true,
+        auth: false,
         user: action.payload ? action.payload : {},
         loading: false,
+        errors: {},
       };
+    });
+    builder.addCase(logoutAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(logoutAction.fulfilled, () => {
+      return initialState;
     });
   },
 });

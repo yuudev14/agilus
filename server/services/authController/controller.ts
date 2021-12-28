@@ -53,7 +53,7 @@ export class AuthController {
     }
   };
 
-  private login = async (req: Request, res: Response): Promise<Response> => {
+  readonly login = async (req: Request, res: Response): Promise<Response> => {
     try {
       const { usernameOrEmail, password } = req.query;
       const user = await this.manager.findUserForLogin(
@@ -76,19 +76,17 @@ export class AuthController {
             },
           });
         }
-        return res.status(403).send({ err: "wrong username" });
+        return res.status(403).send({ password: "wrong password" });
       }
-      return res.status(404).send({ err: "user not found" });
+      return res.status(404).send({ usernameOrEmail: "user not found" });
     } catch (error) {}
   };
 
-  readonly loginOrValidate = async (
+  readonly validateToken = async (
     req: Request,
     res: Response
   ): Promise<Response> => {
-    if (Object.keys(req.query).length) {
-      return this.login(req, res);
-    } else {
+    try {
       const userId = res.locals.user;
       const user = await this.manager.findUser("id", userId);
       return res.send({
@@ -99,10 +97,12 @@ export class AuthController {
           lastName: user.lastName,
         },
       });
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  readonly logout = (req: Request, res: Response): Response => {
+  readonly logout = (_, res: Response): Response => {
     res.clearCookie("agilus_jwt");
     return res.sendStatus(200);
   };

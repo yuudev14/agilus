@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { RegisterFields, userType } from "../../types/types";
+import axios, { AxiosError } from "axios";
+import { LoginFieldsType, RegisterFields, userType } from "../../types/types";
 
 export const registerAction = createAsyncThunk(
   "auth/registerAction",
@@ -14,12 +14,41 @@ export const registerAction = createAsyncThunk(
   }
 );
 
+export const loginAction = createAsyncThunk(
+  "auth/loginAction",
+  async (
+    { usernameOrEmail, password }: LoginFieldsType,
+    { rejectWithValue }
+  ) => {
+    try {
+      const loginRequest = await axios.get(
+        `/api/auth?usernameOrEmail=${usernameOrEmail}&password=${password}`
+      );
+      return loginRequest.data;
+    } catch (error: any) {
+      return rejectWithValue({ ...error.response.data });
+    }
+  }
+);
+
 export const validateTokenAction = createAsyncThunk(
   "auth/validateTokenAction",
   async (): Promise<userType | undefined> => {
     try {
-      const validateRequest = await axios.get("/api/auth");
+      const validateRequest = await axios.get("/api/auth/token");
       return validateRequest.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const logoutAction = createAsyncThunk(
+  "auth/logoutAction",
+  async (): Promise<boolean | undefined> => {
+    try {
+      await axios.delete("/api/auth");
+      return;
     } catch (error) {
       console.log(error);
     }

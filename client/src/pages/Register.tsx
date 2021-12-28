@@ -58,7 +58,7 @@ const Register = () => {
   const register = async (values: RegisterFields): Promise<void> => {
     try {
       await dispatch(registerAction(values));
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }
