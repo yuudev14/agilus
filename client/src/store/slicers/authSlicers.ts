@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authStateType } from "../../types/types";
-import { registerAction } from "../actions/authActions";
+import { registerAction, validateTokenAction } from "../actions/authActions";
 
 const initialState: authStateType<null | boolean> = {
   auth: null,
@@ -17,6 +17,16 @@ const authSlicers = createSlice({
       state.loading = true;
     });
     builder.addCase(registerAction.fulfilled, (_, action) => {
+      return {
+        auth: true,
+        user: action.payload ? action.payload : {},
+        loading: false,
+      };
+    });
+    builder.addCase(validateTokenAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(validateTokenAction.fulfilled, (_, action) => {
       return {
         auth: true,
         user: action.payload ? action.payload : {},

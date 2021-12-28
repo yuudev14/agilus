@@ -1,4 +1,5 @@
 import express from "express";
+import validateToken from "../../middleware/validateToken";
 import { AuthController } from "./controller";
 
 export class AuthRoutes extends AuthController {
@@ -10,7 +11,7 @@ export class AuthRoutes extends AuthController {
     const route = express.Router();
 
     route.post("/", this.register);
-    route.get("/", this.login);
+    route.get("/", validateToken, this.loginOrValidate);
     route.get("/user", this.checkUser);
 
     return route;

@@ -13,3 +13,15 @@ export const registerAction = createAsyncThunk(
     }
   }
 );
+
+export const validateTokenAction = createAsyncThunk(
+  "auth/validateTokenAction",
+  async (): Promise<userType | undefined> => {
+    try {
+      const validateRequest = await axios.get("/api/auth");
+      return validateRequest.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
