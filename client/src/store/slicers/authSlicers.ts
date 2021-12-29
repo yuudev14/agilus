@@ -67,7 +67,9 @@ const authSlicers = createSlice({
       state.loading = true;
     });
     builder.addCase(logoutAction.fulfilled, () => {
-      return initialState;
+      const state = { ...initialState };
+      state.auth = false;
+      return state;
     });
   },
 });

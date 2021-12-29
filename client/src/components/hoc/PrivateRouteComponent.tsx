@@ -1,36 +1,26 @@
-import React from "react";
+import React, { memo, useEffect } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type ChildrenComponentType = {
   Component: React.FC;
 };
 const PrivateRouteComponent = ({ Component }: ChildrenComponentType) => {
-  const path = ["/", "/register", "/login"];
   const auth = useSelector((state: RootStateOrAny) => state.authReducer.auth);
   const location = useLocation();
   const url = location.pathname;
-  const checkUrl = () => {
-    if (path.includes(url)) {
-      return auth === true ? (
-        <Navigate to="/home" />
-      ) : auth === false ? (
-        <Component />
-      ) : (
-        <></>
-      );
-    } else {
-      return auth === true ? (
-        <Component />
-      ) : auth === false ? (
-        <Navigate to={`/login?next=${url}`} />
-      ) : (
-        <></>
-      );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!auth) {
+      navigate(`/login?next=${url}`);
     }
-  };
-
-  return checkUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate, url]);
+  return (
+    <>
+      <Component />
+    </>
+  );
 };
 
-export default PrivateRouteComponent;
+export default memo(PrivateRouteComponent);
