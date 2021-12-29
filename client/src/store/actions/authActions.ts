@@ -33,12 +33,12 @@ export const loginAction = createAsyncThunk(
 
 export const validateTokenAction = createAsyncThunk(
   "auth/validateTokenAction",
-  async (): Promise<userType | undefined> => {
+  async (_, { rejectWithValue }) => {
     try {
       const validateRequest = await axios.get("/api/auth/token");
       return validateRequest.data;
     } catch (error) {
-      console.log(error);
+      return rejectWithValue({ token: "not authenticated" });
     }
   }
 );

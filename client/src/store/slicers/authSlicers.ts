@@ -54,11 +54,14 @@ const authSlicers = createSlice({
     });
     builder.addCase(validateTokenAction.fulfilled, (_, action) => {
       return {
-        auth: false,
+        auth: true,
         user: action.payload ? action.payload : {},
         loading: false,
         errors: {},
       };
+    });
+    builder.addCase(validateTokenAction.rejected, (state, action) => {
+      state.auth = false;
     });
     builder.addCase(logoutAction.pending, (state) => {
       state.loading = true;

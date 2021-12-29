@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { HashRouter, Routes, Route } from "react-router-dom";
+import PrivateRouteComponent from "./components/hoc/PrivateRouteComponent";
 import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
@@ -17,9 +18,18 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/home"
+            element={<PrivateRouteComponent Component={Home} />}
+          />
+          <Route
+            path="/login"
+            element={<PrivateRouteComponent Component={Login} />}
+          />
+          <Route
+            path="/register"
+            element={<PrivateRouteComponent Component={Register} />}
+          />
         </Routes>
       </HashRouter>
     </div>

@@ -1,15 +1,19 @@
 import { useRef } from "react";
-import { Form, Formik, FormikContextType, FormikProps } from "formik";
+import { Form, Formik, FormikProps } from "formik";
 import InputField from "../components/Formik/InputField";
 import * as Yup from "yup";
 import { LoginFieldsType } from "../types/types";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../store/actions/authActions";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const next = query.get("next");
+
   const formikRef = useRef<FormikProps<LoginFieldsType>>(null);
   const initialValues = {
     usernameOrEmail: "",
@@ -26,7 +30,7 @@ const Login = () => {
       if ("error" in loginDispatch) {
         setErrors(loginDispatch.payload);
       } else {
-        navigate("/home");
+        navigate(!next ? "/" : next);
       }
     } catch (error) {}
   };
