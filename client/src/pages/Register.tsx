@@ -7,7 +7,7 @@ import axios from "axios";
 import { RegisterFields } from "../types/types";
 import { useDispatch } from "react-redux";
 import { registerAction } from "../store/actions/authActions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -71,6 +71,9 @@ const Register = () => {
         onSubmit={register}
         innerRef={formikRef}>
         <Form>
+          <Link to="/">
+            <h1>Agilus</h1>
+          </Link>
           <InputField
             name="firstName"
             type="text"
@@ -113,6 +116,11 @@ const Register = () => {
             placeholder="password"
           />
           <input type="submit" />
+          <div className="authOption">
+            <p>
+              Already have an account? <Link to="/login">Log in</Link>
+            </p>
+          </div>
         </Form>
       </Formik>
     </main>

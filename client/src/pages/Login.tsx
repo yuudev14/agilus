@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { LoginFieldsType } from "../types/types";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../store/actions/authActions";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,6 +42,9 @@ const Login = () => {
         innerRef={formikRef}
         onSubmit={login}>
         <Form>
+          <Link to="/">
+            <h1>Agilus</h1>
+          </Link>
           <InputField
             name="usernameOrEmail"
             label="username or email"
@@ -49,6 +52,11 @@ const Login = () => {
           />
           <InputField name="password" label="Password" type="password" />
           <input type="submit" />
+          <div className="authOption">
+            <p>
+              Don't have an account yet? <Link to="/register">Register</Link>
+            </p>
+          </div>
         </Form>
       </Formik>
     </main>
