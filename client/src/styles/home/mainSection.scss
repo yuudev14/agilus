@@ -1,0 +1,11 @@
+@import "../variables.scss";
+@import "./userHeader.scss";
+
+@mixin mainSection {
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    @include userHeader;
+  }
+}

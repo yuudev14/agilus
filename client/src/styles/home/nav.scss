@@ -1,0 +1,35 @@
+@import "../variables.scss";
+
+@mixin nav {
+  nav {
+    background-color: $secondary;
+    width: 250px;
+    transition: 0.5s;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    section {
+      width: 210px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h1 {
+        color: white;
+        font-size: 1.5em;
+      }
+      i {
+        font-size: 1.5em !important;
+        color: white;
+      }
+    }
+    ul {
+      width: 210px;
+    }
+  }
+  .closeNav {
+    width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}
