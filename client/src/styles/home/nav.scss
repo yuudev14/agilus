@@ -3,27 +3,54 @@
 @mixin nav {
   nav {
     background-color: $secondary;
-    width: 250px;
+    width: 100%;
     transition: 0.5s;
     padding: 20px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     overflow: hidden;
+    height: 100%;
     section {
-      width: 210px;
+      // width: 210px;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding-bottom: 20px;
       h1 {
-        color: white;
-        font-size: 1.5em;
+        color: $white;
+        font-size: 1.5rem;
       }
       i {
-        font-size: 1.5em !important;
-        color: white;
+        font-size: 1.5rem !important;
+        color: $white;
+        &:hover {
+          color: white;
+        }
       }
     }
     ul {
-      width: 210px;
+      // width: 210px;
+      width: 100%;
+      list-style-type: none;
+      a {
+        color: $white;
+        &:hover {
+          color: white;
+        }
+      }
+      li {
+        color: $white;
+        margin-top: 10px;
+        cursor: pointer;
+        i {
+          margin-right: 10px;
+        }
+        &:hover {
+          color: white;
+        }
+      }
     }
   }
   .closeNav {

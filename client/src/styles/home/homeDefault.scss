@@ -1,0 +1,96 @@
+@import "../variables.scss";
+@import "./calendar.scss";
+
+.homeDefault {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  .content {
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    height: 100%;
+    flex-direction: column-reverse;
+  }
+  .workspace_favorites::-webkit-scrollbar {
+    background-color: $primary;
+    width: 5px;
+  }
+  .workspace_favorites::-webkit-scrollbar-thumb {
+    background-color: gray;
+  }
+  .workspace_favorites {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .taskDue {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @include calendar;
+  }
+  .workspace,
+  .favorites {
+    margin: 20px 0;
+    width: 100%;
+
+    .homeDefaultHeader {
+      width: 100%;
+      border-bottom: 1px solid $secondary;
+      display: flex;
+      justify-content: space-between;
+      color: $white;
+      padding-bottom: 5px;
+    }
+    .projects {
+      flex-wrap: wrap;
+      display: flex;
+      padding-bottom: 50px;
+      .project {
+        margin: 25px;
+        height: 120px;
+        // width: 125px;
+        width: 100%;
+
+        cursor: pointer;
+
+        background-color: $sandyBrown;
+        border-radius: 20px;
+        box-shadow: 1px 1px 5px black;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.15);
+        }
+        h3 {
+          text-align: center;
+          margin: 5px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .homeDefault {
+    .content {
+      flex-direction: row;
+      .workspace_favorites {
+        width: 60%;
+        .project {
+          width: 125px;
+        }
+      }
+      .taskDue {
+        width: 40%;
+      }
+    }
+  }
+}

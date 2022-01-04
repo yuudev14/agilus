@@ -1,6 +1,6 @@
 import React from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutAction } from "../../store/actions/authActions";
 import { setNavStateAction } from "../../store/slicers/navSlicers";
 
@@ -26,10 +26,24 @@ const Nav: React.FC = () => {
         <i className="fa fa-bars" onClick={closeMenu}></i>
       </section>
       <ul>
-        <li>Home</li>
-        <li>My Tasks</li>
-        <li>Inbox</li>
-        <li onClick={logout}>logout</li>
+        <li>
+          <Link to="/">
+            <i className="fa fa-home"></i>Home
+          </Link>
+        </li>
+        <li>
+          <Link to="tasks">
+            <i className="fa fa-tasks"></i>My Tasks
+          </Link>
+        </li>
+        <li>
+          <Link to="tasks">
+            <i className="fa fa-inbox"></i>Inbox
+          </Link>
+        </li>
+        <li onClick={logout}>
+          <i className="fa fa-sign-out"></i>logout
+        </li>
       </ul>
     </nav>
   );

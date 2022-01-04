@@ -1,0 +1,10 @@
+@import "../variables.scss";
+
+@mixin calendar {
+  .react-calendar {
+    width: 90%;
+    .react-calendar__navigation {
+      width: 100%;
+    }
+  }
+}

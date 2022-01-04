@@ -21,7 +21,8 @@ code {
   box-sizing: border-box !important;
 }
 button,
-input[type="submit"] {
+input[type="submit"],
+i {
   cursor: pointer;
 }
 
