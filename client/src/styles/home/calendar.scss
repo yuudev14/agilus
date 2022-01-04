@@ -3,8 +3,39 @@
 @mixin calendar {
   .react-calendar {
     width: 90%;
+    button {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: $lightSeaGreen;
+      padding: 5px;
+    }
     .react-calendar__navigation {
       width: 100%;
+    }
+    .react-calendar__month-view__weekdays {
+      div {
+        display: flex;
+        justify-content: center;
+      }
+      abbr {
+        color: $lightSeaGreen;
+        text-decoration: none;
+        padding: 5px;
+      }
+    }
+    .react-calendar__month-view__days {
+      margin-top: 10px;
+      button {
+        border: 1px solid $secondary;
+      }
+      .react-calendar__month-view__days__day--neighboringMonth {
+        opacity: 0.5;
+        border: none;
+      }
+      .react-calendar__tile--now {
+        color: $tomato;
+      }
     }
   }
 }
