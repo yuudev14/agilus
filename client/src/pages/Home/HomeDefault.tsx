@@ -62,6 +62,16 @@ const HomeDefault: React.FC = () => {
         </section>
         <section className="taskDue">
           <Calendar />
+          <div className="todays-tasks">
+            <h2>Tasks for today</h2>
+            <ul>
+              <li>refactor code</li>
+              <li>refactor code</li>
+              <li>refactor code</li>
+              <li>refactor code</li>
+              <li>refactor code</li>
+            </ul>
+          </div>
         </section>
       </div>
     </div>

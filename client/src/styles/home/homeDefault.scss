@@ -27,15 +27,28 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-    overflow-y: auto;
+
     padding: 10px;
   }
 
   .taskDue {
     width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     @include calendar;
+    .todays-tasks {
+      color: $white;
+      width: 90%;
+      padding: 20px;
+      ul {
+        // padding-left: 20px;
+        list-style-type: none;
+        li {
+          margin: 5px 0;
+        }
+      }
+    }
   }
   .workspace,
   .favorites {
@@ -52,10 +65,12 @@
     }
     .projects {
       flex-wrap: wrap;
-      display: flex;
+      display: grid;
+      justify-content: center;
+      grid-gap: 25px;
+      // grid-template-columns: repeat(3, 1fr);
       padding-bottom: 50px;
       .project {
-        margin: 25px;
         height: 120px;
         // width: 125px;
         width: 100%;
@@ -66,9 +81,6 @@
         border-radius: 20px;
         box-shadow: 1px 1px 5px black;
         transition: 0.5s;
-        &:hover {
-          transform: scale(1.15);
-        }
         h3 {
           text-align: center;
           margin: 5px;
@@ -78,14 +90,20 @@
   }
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 300px) {
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 800px) {
   .homeDefault {
     .content {
       flex-direction: row;
       .workspace_favorites {
         width: 60%;
-        .project {
-          width: 125px;
+        overflow-y: auto;
+        .projects {
+          grid-template-columns: repeat(3, 1fr);
         }
       }
       .taskDue {

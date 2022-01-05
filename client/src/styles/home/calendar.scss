@@ -3,6 +3,9 @@
 @mixin calendar {
   .react-calendar {
     width: 90%;
+    border: 1px solid rgba($color: $lightSeaGreen, $alpha: 0.3);
+    padding: 10px;
+    border-radius: 20px;
     button {
       border: none;
       outline: none;
@@ -12,6 +15,8 @@
     }
     .react-calendar__navigation {
       width: 100%;
+      display: flex;
+      justify-content: center;
     }
     .react-calendar__month-view__weekdays {
       div {
@@ -27,7 +32,7 @@
     .react-calendar__month-view__days {
       margin-top: 10px;
       button {
-        border: 1px solid $secondary;
+        border: 1px solid rgba($color: $lightSeaGreen, $alpha: 0.1);
       }
       .react-calendar__month-view__days__day--neighboringMonth {
         opacity: 0.5;

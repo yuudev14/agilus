@@ -7,7 +7,13 @@
     flex-direction: column;
     flex-grow: 1;
     overflow: hidden;
-    height: 100vh;
+    // min-height: 100vh;
     @include userHeader;
+  }
+
+  @media only screen and (min-width: 800px) {
+    .main-section {
+      height: 100vh;
+    }
   }
 }
