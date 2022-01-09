@@ -12,6 +12,12 @@ export type AddProjectType = {
   color: String;
 }
 
+export type ProjectStoreTypes = {
+  loading: Boolean,
+  favorites : AddProjectType[],
+  allProjects: AddProjectType[],
+}
+
 export type LoginFieldsType = {
   usernameOrEmail: String;
   password: String;

@@ -1,12 +1,16 @@
+import axios from "axios";
 import { ErrorMessage } from "formik";
 import { Field } from "formik";
 import { Form, Formik } from "formik";
 import React, {useRef} from "react";
+import { useDispatch } from "react-redux";
 import * as yup from "yup";
+import { addProjectsAction } from "../../store/actions/projectActions";
 import { AddProjectType } from "../../types/types";
 import InputField from "../Formik/InputField";
 
 const AddProjectForm: React.FC = () => {
+  const dispatch = useDispatch()
 
   const colors = [
     "#fe9e44",
@@ -23,12 +27,18 @@ const AddProjectForm: React.FC = () => {
   const addProjectRef = useRef<HTMLDivElement>(null)
 
   const validationSchema = yup.object({
-    project_name : yup.string().required("Please input a project name"),
+    project_name : yup.string()
+    .required("Please input a project name")
+    .test('is exist', 'Project name already exist', async(value) => {
+      const result = await axios.get(`/api/projects/exist?name=${value}`)
+      return result.data
+
+    }),
     color : yup.string().required("Please pick a color")
   });
 
   const addProject = (values: AddProjectType) => {
-    console.log(values)
+    dispatch(addProjectsAction(values))
   };
 
   const closeForm = () => {

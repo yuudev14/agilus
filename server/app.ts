@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import { AuthRoutes } from "./services/authController/routes";
+import { ProjectRoutes } from "./services/projectController/routes";
 
 export class App {
   readonly app: Application;
@@ -26,7 +27,10 @@ export class App {
   }
 
   runServices() {
-    const services = [new AuthRoutes()];
+    const services = [
+      new AuthRoutes(),
+      new ProjectRoutes(),
+    ];
     services.forEach((service) =>
       this.app.use(`/api${service.path}`, service.getRoutes())
     );
