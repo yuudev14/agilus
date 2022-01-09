@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import AddProjectForm from "../../components/Home/AddProjectForm";
 import { getAllProjectsAction } from "../../store/actions/projectActions";
+import { emptyProjectListsAction } from "../../store/slicers/projectSlicers";
 import "../../styles/home/homeDefault.scss";
 
 const HomeDefault: React.FC = () => {
@@ -16,6 +17,9 @@ const HomeDefault: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAllProjectsAction());
+    return () => {
+      dispatch(emptyProjectListsAction())
+    }
   }, [dispatch])
   return (
     <div className="homeDefault">

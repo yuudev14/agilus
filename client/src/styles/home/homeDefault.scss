@@ -99,6 +99,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 10px;
     @include calendar;
     .todays-tasks {
       color: $white;
@@ -124,13 +125,14 @@
       display: flex;
       justify-content: space-between;
       color: $white;
-      padding-bottom: 5px;
+      margin-bottom: 5px;
     }
     .projects {
       flex-wrap: wrap;
       display: grid;
       justify-content: center;
       grid-gap: 25px;
+      // margin-top: 10px;
       // grid-template-columns: repeat(3, 1fr);
       padding-bottom: 50px;
       .project {

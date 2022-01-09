@@ -11,7 +11,11 @@ const initialState : ProjectStoreTypes = {
 const projectSlicers = createSlice({
   name: "projects",
   initialState,
-  reducers: {},
+  reducers: {
+    emptyProjectListsAction: (state) => {
+      return initialState
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllProjectsAction.pending, (state) => {
       state.loading = true;
@@ -31,4 +35,5 @@ const projectSlicers = createSlice({
   }
 })
 
-export const projectReducer = projectSlicers.reducer
+export const projectReducer = projectSlicers.reducer;
+export const {emptyProjectListsAction} = projectSlicers.actions;
