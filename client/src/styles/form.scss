@@ -1,5 +1,7 @@
-@import "../variables.scss";
-main {
+@import "./variables.scss";
+.login-page,
+.register-page,
+.add-project {
   position: relative;
   form {
     margin-top: 60px;
@@ -33,7 +35,8 @@ main {
       input {
         width: 100%;
         background-color: transparent;
-        padding-top: 10px;
+        padding-top: 15px;
+        font-size: 20px;
       }
       .hasValue {
         transform: translateY(-100%);
@@ -46,12 +49,10 @@ main {
         transform: translateY(-50%);
         color: rgb(168, 168, 168);
         left: 5px;
+        font-size: 20px;
       }
     }
-    .error {
-      color: $tomato;
-      border-color: $tomato;
-    }
+    
     p.error {
       margin-top: -10px;
     }

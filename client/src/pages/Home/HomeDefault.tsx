@@ -1,16 +1,21 @@
 import React from "react";
 import Calendar from "react-calendar";
+import AddProjectForm from "../../components/Home/AddProjectForm";
 import "../../styles/home/homeDefault.scss";
 
 const HomeDefault: React.FC = () => {
+
+  const openAddProjectForm = () => {
+    document.querySelector('.add-project')?.classList.add('show')
+  }
   return (
     <div className="homeDefault">
       <div className="content">
         <section className="workspace_favorites">
+          <AddProjectForm />
           <section className="favorites">
             <header className="homeDefaultHeader">
               <h4>Workspace : 10</h4>
-              <i className="fa fa-plus"></i>
             </header>
             <div className="projects">
               <div className="project">
@@ -24,7 +29,7 @@ const HomeDefault: React.FC = () => {
           <section className="workspace">
             <header className="homeDefaultHeader">
               <h4>Workspace : 10</h4>
-              <i className="fa fa-plus"></i>
+              <i className="fa fa-plus" onClick={openAddProjectForm}></i>
             </header>
             <div className="projects">
               <div className="project">

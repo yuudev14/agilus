@@ -2,7 +2,6 @@ import { Form, Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { useRef } from "react";
 import InputField from "../components/Formik/InputField";
-import "../styles/auth/auth.scss";
 import axios from "axios";
 import { RegisterFields } from "../types/types";
 import { useDispatch } from "react-redux";
@@ -64,7 +63,7 @@ const Register = () => {
     }
   };
   return (
-    <main>
+    <main className="register-page">
       <Formik
         initialValues={initialValues}
         validationSchema={validation}

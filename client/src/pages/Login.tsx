@@ -35,7 +35,7 @@ const Login = () => {
     } catch (error) {}
   };
   return (
-    <main>
+    <main className="login-page">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

@@ -7,6 +7,11 @@ export type RegisterFields = {
   lastName: String;
 };
 
+export type AddProjectType = {
+  project_name: String;
+  color: String;
+}
+
 export type LoginFieldsType = {
   usernameOrEmail: String;
   password: String;
