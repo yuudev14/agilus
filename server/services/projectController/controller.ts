@@ -20,6 +20,16 @@ export class ProjectController{
     }
   }
 
+  readonly getAllProject = async(req : Request, res : Response) => {
+    try {
+      const { user } = res.locals;
+      const projects = await this.manager.getAllProjects(user);
+      return res.send(projects)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   readonly projectIsExist = async (req : Request, res : Response) : Promise<Response> => {
     try {
       const { name } = req.query;

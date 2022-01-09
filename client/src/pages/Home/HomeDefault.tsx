@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Calendar from "react-calendar";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import AddProjectForm from "../../components/Home/AddProjectForm";
+import { getAllProjectsAction } from "../../store/actions/projectActions";
 import "../../styles/home/homeDefault.scss";
 
 const HomeDefault: React.FC = () => {
 
+  const dispatch = useDispatch();
+  const allProjects = useSelector((state : RootStateOrAny ) => state.projectReducer.allProjects)
+
   const openAddProjectForm = () => {
-    document.querySelector('.add-project')?.classList.add('show')
+    document.querySelector('.add-project')?.classList.add('show');
   }
+
+  useEffect(() => {
+    dispatch(getAllProjectsAction());
+  }, [dispatch])
   return (
     <div className="homeDefault">
       <div className="content">
@@ -32,36 +41,11 @@ const HomeDefault: React.FC = () => {
               <i className="fa fa-plus" onClick={openAddProjectForm}></i>
             </header>
             <div className="projects">
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
+              {allProjects.map((proj : any) => (
+                <div key={proj.project_name} className="project" style={{backgroundColor : proj.color}}>
+                  <h3>{proj.project_name}</h3>
+                </div>
+              ))}
             </div>
           </section>
         </section>

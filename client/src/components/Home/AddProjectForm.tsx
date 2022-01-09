@@ -37,8 +37,9 @@ const AddProjectForm: React.FC = () => {
     color : yup.string().required("Please pick a color")
   });
 
-  const addProject = (values: AddProjectType) => {
-    dispatch(addProjectsAction(values))
+  const addProject = async(values: AddProjectType) => {
+    await dispatch(addProjectsAction(values))
+    closeForm();
   };
 
   const closeForm = () => {

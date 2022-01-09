@@ -14,7 +14,8 @@ export class ProjectRoutes extends ProjectController{
 
     routes.use('', validateToken);
 
-    routes.post('/', this.addProject)
+    routes.post('/', this.addProject);
+    routes.get('/', this.getAllProject);
     routes.get('/exist', this.projectIsExist);
 
     return routes

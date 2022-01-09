@@ -19,4 +19,10 @@ export class ProjectManager{
   public createProject = async(data) : Promise<Projects> => {
     return this.projectRepository.save(data)
   }
+
+  public getAllProjects = async(user_id) : Promise<Projects[]> => {
+    return this.projectRepository.createQueryBuilder('projects')
+      .where('user_id = :user_id', {user_id})
+      .getMany()
+  }
 }
