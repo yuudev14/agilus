@@ -11,7 +11,7 @@ const PrivateRouteComponent = ({ Component }: ChildrenComponentType) => {
   const url = location.pathname;
   const navigate = useNavigate();
   useEffect(() => {
-    if (!auth) {
+    if (auth === false) {
       navigate(`/login?next=${url}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

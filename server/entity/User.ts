@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Favorites } from "./Favorites";
 import { Projects } from "./Projects";
 
 @Entity()
@@ -22,5 +23,8 @@ export class User {
   password: string;
 
   @OneToMany(() => Projects, project => project.user)
-  projects: Projects[]
+  projects: Projects[];
+
+  @OneToMany(() => Favorites, favorites => favorites.project)
+  favorites : Favorites[]
 }

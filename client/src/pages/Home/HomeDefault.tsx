@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import AddProjectForm from "../../components/Home/AddProjectForm";
 import { getAllProjectsAction } from "../../store/actions/projectActions";
 import { emptyProjectListsAction } from "../../store/slicers/projectSlicers";
@@ -46,9 +47,15 @@ const HomeDefault: React.FC = () => {
             </header>
             <div className="projects">
               {allProjects.map((proj : any) => (
-                <div key={proj.project_name} className="project" style={{backgroundColor : proj.color}}>
-                  <h3>{proj.project_name}</h3>
-                </div>
+                <Link to="/home/project/board">
+                  <div key={proj.project_name} className="project" style={{backgroundColor : proj.color}}>
+                    <h3>{proj.project_name}</h3>
+                    <div className="options">
+                      <i className="fa fa-star-o"/>
+                      <i className="fa fa-trash" />
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>

@@ -30,9 +30,12 @@ const Login = () => {
       if ("error" in loginDispatch) {
         setErrors(loginDispatch.payload);
       } else {
-        navigate(!next ? "/" : next);
+        console.log(next)
+        navigate(next === null ? "/home" : next);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <main className="login-page">

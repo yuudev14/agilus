@@ -32,7 +32,7 @@
       }
     }
     ul {
-      // width: 210px;
+      
       width: 100%;
       list-style-type: none;
       a {
@@ -67,10 +67,10 @@
       width: 250px;
       height: auto;
       section {
-        width: 210px;
-        ul {
-          width: 210px;
-        }
+        width: 210px !important;
+      }
+      ul {
+        width: 210px !important;
       }
     }
   }

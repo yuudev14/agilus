@@ -27,7 +27,7 @@ const Nav: React.FC = () => {
       </section>
       <ul>
         <li>
-          <Link to="/">
+          <Link to="/home">
             <i className="fa fa-home"></i>Home
           </Link>
         </li>
