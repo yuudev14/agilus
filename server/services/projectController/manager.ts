@@ -1,11 +1,14 @@
 import { getRepository, Repository } from "typeorm";
+import { Favorites } from "../../entity/Favorites";
 import { Projects } from "../../entity/Projects";
 
 export class ProjectManager{
-  private projectRepository: Repository<Projects>
+  private projectRepository: Repository<Projects>;
+  private favoriteRepository: Repository<Favorites>;
 
   constructor(){
-    this.projectRepository = getRepository(Projects)
+    this.projectRepository = getRepository(Projects);
+    this.favoriteRepository = getRepository(Favorites);
   }
 
   public findProject = async(project_name: String, user_id) : Promise<Projects> => {
@@ -24,5 +27,16 @@ export class ProjectManager{
     return this.projectRepository.createQueryBuilder('projects')
       .where('user_id = :user_id', {user_id})
       .getMany()
+  }
+
+  public getAllFavorites = async(user_id) => {
+    return this.projectRepository.createQueryBuilder('project')
+      .innerJoin(Favorites, 'favorite', 'project.id = favorite.project_id')
+      .where('favorite.user_id = :user_id', {user_id})
+      .getMany()
+  }
+
+  public addFavorites = async(data) : Promise<Projects> => {
+    return this.favoriteRepository.save(data)
   }
 }

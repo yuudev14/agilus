@@ -30,6 +30,17 @@ export class ProjectController{
     }
   }
 
+  readonly getAllFavorites = async(req : Request, res : Response) => {
+    try {
+      const { user } = res.locals;
+      const projects = await this.manager.getAllFavorites(user);
+      
+      return res.send(projects)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   readonly projectIsExist = async (req : Request, res : Response) : Promise<Response> => {
     try {
       const { name } = req.query;
@@ -40,6 +51,21 @@ export class ProjectController{
     } catch (error) {
       console.log(error);
     }
+  }
 
+  readonly addToFavorites = async (req : Request, res : Response) : Promise<Response> => {
+    try {
+      const { user } = res.locals;
+      const { project_id } = req.body;
+      const data = {
+        user,
+        project: project_id
+      }
+      const addFavorite = await this.manager.addFavorites(data);
+      // if(isExist) return res.send(false);
+      return res.send(true);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

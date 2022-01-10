@@ -9,7 +9,7 @@ export const addProjectsAction = createAsyncThunk(
       return addProjectRequest.data;
     } catch (error) {     
     }
-})
+});
 
 export const getAllProjectsAction = createAsyncThunk(
   'projects/getAllProjectsAction', async() => {
@@ -19,4 +19,24 @@ export const getAllProjectsAction = createAsyncThunk(
       return projects.data;
     } catch (error) {     
     }
-  })
+});
+
+export const getAllFavoritesAction = createAsyncThunk(
+  'projects/getAllFavoritesAction', async() => {
+    try {
+      const projects= await axios.get('/api/projects/favorites');
+      console.log(projects.data);
+      return projects.data;
+    } catch (error) {     
+    }
+});
+
+export const addToFavoritesAction = createAsyncThunk(
+  'projects/addToFavoritesAction', async(project_id : String) => {
+    try {
+      const projects= await axios.post('/api/projects/favorites', {project_id});
+      console.log(projects.data);
+      return projects.data;
+    } catch (error) {     
+    }
+});

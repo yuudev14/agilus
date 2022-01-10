@@ -17,6 +17,8 @@ export class ProjectRoutes extends ProjectController{
     routes.post('/', this.addProject);
     routes.get('/', this.getAllProject);
     routes.get('/exist', this.projectIsExist);
+    routes.post('/favorites', this.addToFavorites);
+    routes.get('/favorites', this.getAllFavorites);
 
     return routes
   }

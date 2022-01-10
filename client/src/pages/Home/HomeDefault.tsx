@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AddProjectForm from "../../components/Home/AddProjectForm";
-import { getAllProjectsAction } from "../../store/actions/projectActions";
+import { addToFavoritesAction, getAllFavoritesAction, getAllProjectsAction } from "../../store/actions/projectActions";
 import { emptyProjectListsAction } from "../../store/slicers/projectSlicers";
 import "../../styles/home/homeDefault.scss";
 
 const HomeDefault: React.FC = () => {
 
   const dispatch = useDispatch();
-  const allProjects = useSelector((state : RootStateOrAny ) => state.projectReducer.allProjects)
+  const navigate = useNavigate();
+
+  const favorites = useSelector((state : RootStateOrAny ) => state.projectReducer.favorites);
+  const allProjects = useSelector((state : RootStateOrAny ) => state.projectReducer.allProjects);
 
   const openAddProjectForm = () => {
     document.querySelector('.add-project')?.classList.add('show');
@@ -21,7 +24,20 @@ const HomeDefault: React.FC = () => {
     return () => {
       dispatch(emptyProjectListsAction())
     }
-  }, [dispatch])
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllFavoritesAction());
+    return () => {
+      dispatch(emptyProjectListsAction())
+    }
+  }, [dispatch]);
+
+  const addToFavorites = async(id: String) => {
+    await dispatch(addToFavoritesAction(id));
+    // console.log('asdsa')
+
+  }
   return (
     <div className="homeDefault">
       <div className="content">
@@ -32,12 +48,16 @@ const HomeDefault: React.FC = () => {
               <h4>Workspace : 10</h4>
             </header>
             <div className="projects">
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
-              <div className="project">
-                <h3>PetPals</h3>
-              </div>
+            {favorites.map((proj : any) => (
+                <div 
+                  key={proj.project_name} 
+                  className="project" 
+                  style={{backgroundColor : proj.color}}
+                  onClick={() => navigate('/home/project/board') }
+                >
+                  <h3>{proj.project_name}</h3>
+                </div>
+              ))}
             </div>
           </section>
           <section className="workspace">
@@ -47,15 +67,24 @@ const HomeDefault: React.FC = () => {
             </header>
             <div className="projects">
               {allProjects.map((proj : any) => (
-                <Link to="/home/project/board">
-                  <div key={proj.project_name} className="project" style={{backgroundColor : proj.color}}>
-                    <h3>{proj.project_name}</h3>
-                    <div className="options">
-                      <i className="fa fa-star-o"/>
-                      <i className="fa fa-trash" />
-                    </div>
+                <div 
+                  key={proj.project_name} 
+                  className="project" 
+                  style={{backgroundColor : proj.color}}
+                  onClick={() => navigate('/home/project/board') }
+                >
+                  <h3>{proj.project_name}</h3>
+                  <div className="options">
+                    <i className="fa fa-star-o" onClick={(e) => {
+                      e.stopPropagation();
+                      addToFavorites(proj.id)
+                    }}/>
+                    <i className="fa fa-trash" onClick={(e) => {
+                      e.stopPropagation();
+                      
+                    }}/>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </section>
