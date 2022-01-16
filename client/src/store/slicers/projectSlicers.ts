@@ -17,6 +17,7 @@ const projectSlicers = createSlice({
     }
   },
   extraReducers: (builder) => {
+
     builder.addCase(getAllProjectsAction.pending, (state) => {
       state.loading = true;
     });
@@ -54,13 +55,9 @@ const projectSlicers = createSlice({
     });
 
     builder.addCase(deleteProjectAction.fulfilled, (state, action) => {
-      state.favorites = state.favorites.filter(_fav => _fav.id === action.payload);
-      state.allProjects = state.allProjects.filter(_fav => _fav.id === action.payload);
+      state.favorites = state.favorites.filter(_fav => _fav.id !== action.payload);
+      state.allProjects = state.allProjects.filter(_fav => _fav.id !== action.payload);
     });
-    
-    
-
-    
   }
 })
 

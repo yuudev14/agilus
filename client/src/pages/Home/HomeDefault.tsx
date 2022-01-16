@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddProjectForm from "../../components/Home/AddProjectForm";
-import { addToFavoritesAction, getAllFavoritesAction, getAllProjectsAction } from "../../store/actions/projectActions";
+import { addToFavoritesAction, deleteProjectAction, getAllFavoritesAction, getAllProjectsAction } from "../../store/actions/projectActions";
 import { emptyProjectListsAction } from "../../store/slicers/projectSlicers";
 import "../../styles/home/homeDefault.scss";
 
@@ -33,11 +33,6 @@ const HomeDefault: React.FC = () => {
     }
   }, [dispatch]);
 
-  const addToFavorites = async(id: String) => {
-    await dispatch(addToFavoritesAction(id));
-    // console.log('asdsa')
-
-  }
   return (
     <div className="homeDefault">
       <div className="content">
@@ -77,11 +72,11 @@ const HomeDefault: React.FC = () => {
                   <div className="options">
                     <i className="fa fa-star-o" onClick={(e) => {
                       e.stopPropagation();
-                      addToFavorites(proj.id)
+                      dispatch(addToFavoritesAction(proj.id));
                     }}/>
                     <i className="fa fa-trash" onClick={(e) => {
                       e.stopPropagation();
-                      
+                      dispatch(deleteProjectAction(proj.id));      
                     }}/>
                   </div>
                 </div>

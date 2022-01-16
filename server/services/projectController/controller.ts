@@ -1,3 +1,4 @@
+import { Resolver } from "dns";
 import { Request, Response } from "express";
 import { ProjectManager } from "./manager";
 
@@ -61,7 +62,7 @@ export class ProjectController{
         user,
         project: project_id
       }
-      const project = await this.manager.findProjectInFavorites(project_id, user, );
+      const project = await this.manager.findProjectInFavorites(project_id, user);
       if(!project){
         const addFavorite = await this.manager.addFavorites(data);
         return res.send(addFavorite);
@@ -70,6 +71,16 @@ export class ProjectController{
       // if(isExist) return res.send(false);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  readonly deleteProject = async(req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await this.manager.deleteProject(id);
+      return res.sendStatus(200); 
+    } catch (error) {
+      console.log(error)
     }
   }
 }

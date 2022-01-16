@@ -13,8 +13,7 @@ export class ProjectManager{
 
   public findProject = async(project_name: String, user_id, id? : String) : Promise<Projects> => {
     return this.projectRepository.createQueryBuilder('projects')
-      .where('project_name = :project_name OR id = :id', {project_name, id})
-      .andWhere('user_id = :user_id', {user_id})
+      .where('(project_name = :project_name OR id = :id) AND user_id = :user_id', {project_name, id, user_id})
       .getOne()
   }
 
@@ -27,6 +26,10 @@ export class ProjectManager{
 
   public createProject = async(data) : Promise<Projects> => {
     return this.projectRepository.save(data)
+  }
+
+  public deleteProject = async(project_id) => {
+    return this.projectRepository.delete({id : project_id})
   }
 
   public getAllProjects = async(user_id) : Promise<Projects[]> => {
