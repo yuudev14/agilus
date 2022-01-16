@@ -8,6 +8,7 @@ export type RegisterFields = {
 };
 
 export type AddProjectType = {
+  id?: String,
   project_name: String;
   color: String;
 }

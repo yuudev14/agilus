@@ -11,10 +11,16 @@ export class ProjectManager{
     this.favoriteRepository = getRepository(Favorites);
   }
 
-  public findProject = async(project_name: String, user_id) : Promise<Projects> => {
-    console.log(user_id)
+  public findProject = async(project_name: String, user_id, id? : String) : Promise<Projects> => {
     return this.projectRepository.createQueryBuilder('projects')
-      .where('project_name = :project_name', {project_name})
+      .where('project_name = :project_name OR id = :id', {project_name, id})
+      .andWhere('user_id = :user_id', {user_id})
+      .getOne()
+  }
+
+  public findProjectInFavorites = async(project_id: String, user_id) : Promise<Favorites> => {
+    return this.favoriteRepository.createQueryBuilder('favorite')
+      .where('project_id = :project_id', {project_id})
       .andWhere('user_id = :user_id', {user_id})
       .getOne()
   }
@@ -37,6 +43,9 @@ export class ProjectManager{
   }
 
   public addFavorites = async(data) : Promise<Projects> => {
-    return this.favoriteRepository.save(data)
+    const project = await this.favoriteRepository.save(data)
+    return this.projectRepository.createQueryBuilder('project')
+        .where("project.id = :project_id", {project_id: project.project})
+        .getOne()
   }
 }

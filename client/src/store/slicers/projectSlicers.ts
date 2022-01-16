@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProjectStoreTypes } from "../../types/types";
-import { addProjectsAction, addToFavoritesAction, getAllFavoritesAction, getAllProjectsAction } from "../actions/projectActions";
+import { addProjectsAction, addToFavoritesAction, deleteProjectAction, getAllFavoritesAction, getAllProjectsAction } from "../actions/projectActions";
 
 const initialState : ProjectStoreTypes = {
   favorites : [],
@@ -48,6 +48,16 @@ const projectSlicers = createSlice({
     builder.addCase(addToFavoritesAction.fulfilled, (state, action) => {
       state.favorites.push(action.payload);
     });
+
+    builder.addCase(deleteProjectAction.pending, (state) => {
+      state.loading = true;
+    });
+
+    builder.addCase(deleteProjectAction.fulfilled, (state, action) => {
+      state.favorites = state.favorites.filter(_fav => _fav.id === action.payload);
+      state.allProjects = state.allProjects.filter(_fav => _fav.id === action.payload);
+    });
+    
     
 
     

@@ -61,9 +61,13 @@ export class ProjectController{
         user,
         project: project_id
       }
-      const addFavorite = await this.manager.addFavorites(data);
+      const project = await this.manager.findProjectInFavorites(project_id, user, );
+      if(!project){
+        const addFavorite = await this.manager.addFavorites(data);
+        return res.send(addFavorite);
+      }
+      return res.sendStatus(403);
       // if(isExist) return res.send(false);
-      return res.send(true);
     } catch (error) {
       console.log(error);
     }
