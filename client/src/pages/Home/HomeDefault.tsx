@@ -39,19 +39,21 @@ const HomeDefault: React.FC = () => {
       <div className="content">
         <section className="workspace_favorites">
           <AddProjectForm />
-          <section className="favorites">
-            <header className="homeDefaultHeader">
-              <h4>Workspace : 10</h4>
-            </header>
-            <div className="projects">
-            {favorites.map((proj : any) => (
-                <ProjectCard proj={proj} project_type='favorites'/>
-              ))}
-            </div>
-          </section>
+          {favorites.length > 0 && (
+            <section className="favorites">
+              <header className="homeDefaultHeader">
+                <h4>Favorites : {favorites.length}</h4>
+              </header>
+              <div className="projects">
+              {favorites.map((proj : any) => (
+                  <ProjectCard proj={proj} project_type='favorites'/>
+                ))}
+              </div>
+            </section>
+          )}
           <section className="workspace">
             <header className="homeDefaultHeader">
-              <h4>Workspace : 10</h4>
+              <h4>Workspace : {allProjects.length}</h4>
               <i className="fa fa-plus" onClick={openAddProjectForm}></i>
             </header>
             <div className="projects">
