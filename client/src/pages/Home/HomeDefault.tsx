@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddProjectForm from "../../components/Home/AddProjectForm";
-import { addToFavoritesAction, deleteProjectAction, getAllFavoritesAction, getAllProjectsAction } from "../../store/actions/projectActions";
+import { addToFavoritesAction, deleteProjectAction, deleteToFavoritesAction, getAllFavoritesAction, getAllProjectsAction } from "../../store/actions/projectActions";
 import { emptyProjectListsAction } from "../../store/slicers/projectSlicers";
 import "../../styles/home/homeDefault.scss";
 
@@ -51,6 +51,15 @@ const HomeDefault: React.FC = () => {
                   onClick={() => navigate('/home/project/board') }
                 >
                   <h3>{proj.project_name}</h3>
+                  <div className="options">
+                    <i 
+                      className={proj.infavorite === '0' ? "fa fa-star-o" : "fa fa-star"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch(addToFavoritesAction(proj.id));
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -70,10 +79,17 @@ const HomeDefault: React.FC = () => {
                 >
                   <h3>{proj.project_name}</h3>
                   <div className="options">
-                    <i className="fa fa-star-o" onClick={(e) => {
-                      e.stopPropagation();
-                      dispatch(addToFavoritesAction(proj.id));
-                    }}/>
+                    <i 
+                      className={proj.infavorite === '0' ? "fa fa-star-o" : "fa fa-star"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (proj.infavorite === '0') {
+                          dispatch(addToFavoritesAction(proj.id));
+                        } else{ 
+                          dispatch(deleteToFavoritesAction(proj.id))
+                        }
+                      }}
+                    />
                     <i className="fa fa-trash" onClick={(e) => {
                       e.stopPropagation();
                       dispatch(deleteProjectAction(proj.id));      

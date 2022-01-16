@@ -11,6 +11,7 @@ export type AddProjectType = {
   id?: String,
   project_name: String;
   color: String;
+  infavorite?: String
 }
 
 export type ProjectStoreTypes = {

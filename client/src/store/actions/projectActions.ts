@@ -42,8 +42,18 @@ export const addToFavoritesAction = createAsyncThunk(
   'projects/addToFavoritesAction', async(project_id : String, {rejectWithValue}) => {
     try {
       const projects= await axios.post('/api/projects/favorites', {project_id});
-      console.log(projects.data);
       return projects.data;
+    } catch (error) {   
+      console.log(error);
+      return rejectWithValue(null);
+    }
+});
+
+export const deleteToFavoritesAction = createAsyncThunk(
+  'projects/deleteToFavoritesAction', async(project_id : String, {rejectWithValue}) => {
+    try {
+      const projects= await axios.delete(`/api/projects/favorites/${project_id}`);
+      return project_id;
     } catch (error) {   
       console.log(error);
       return rejectWithValue(null);

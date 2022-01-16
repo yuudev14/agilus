@@ -34,8 +34,7 @@ export class ProjectController{
   readonly getAllFavorites = async(req : Request, res : Response) => {
     try {
       const { user } = res.locals;
-      const projects = await this.manager.getAllFavorites(user);
-      
+      const projects = await this.manager.getAllFavorites(user);      
       return res.send(projects)
     } catch (error) {
       console.log(error);
@@ -68,7 +67,6 @@ export class ProjectController{
         return res.send(addFavorite);
       }
       return res.sendStatus(403);
-      // if(isExist) return res.send(false);
     } catch (error) {
       console.log(error);
     }
@@ -78,6 +76,16 @@ export class ProjectController{
     try {
       const { id } = req.params;
       await this.manager.deleteProject(id);
+      return res.sendStatus(200); 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  readonly deleteProjectInFavorites = async(req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      await this.manager.deleteProjectInFavorites(id);
       return res.sendStatus(200); 
     } catch (error) {
       console.log(error)

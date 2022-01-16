@@ -13,13 +13,14 @@ export class ProjectRoutes extends ProjectController{
     const routes = express.Router();
 
     routes.use('', validateToken);
-    
+
     routes.post('/', this.addProject);
     routes.get('/', this.getAllProject);
     routes.get('/exist', this.projectIsExist);
     routes.post('/favorites', this.addToFavorites);
     routes.get('/favorites', this.getAllFavorites);
     routes.delete('/:id', this.deleteProject);
+    routes.delete('/favorites/:id', this.deleteProjectInFavorites);
 
     return routes
   }

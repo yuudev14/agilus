@@ -32,10 +32,18 @@ export class ProjectManager{
     return this.projectRepository.delete({id : project_id})
   }
 
-  public getAllProjects = async(user_id) : Promise<Projects[]> => {
+  public deleteProjectInFavorites = async(project_id) => {
+    return this.favoriteRepository.createQueryBuilder('favorites')
+      .delete()
+      .where('project_id = :project_id', {project_id})
+      .execute()
+  }
+
+  public getAllProjects = async(user_id)  => {
     return this.projectRepository.createQueryBuilder('projects')
+      .select(['COALESCE((SELECT COUNT(*) from favorites where project_id = projects.id GROUP BY id), 0) AS inFavorite', 'projects.*'])
       .where('user_id = :user_id', {user_id})
-      .getMany()
+      .getRawMany()
   }
 
   public getAllFavorites = async(user_id) => {
