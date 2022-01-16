@@ -21,7 +21,7 @@ export const getAllProjectsAction = createAsyncThunk(
 });
 
 export const deleteProjectAction = createAsyncThunk(
-  'projects/deleteProjectAction', async(project_id : String) => {
+  'projects/deleteProjectAction', async(project_id : string) => {
     try {
       await axios.delete(`/api/projects/${project_id}`);
       return project_id;
@@ -39,7 +39,7 @@ export const getAllFavoritesAction = createAsyncThunk(
 });
 
 export const addToFavoritesAction = createAsyncThunk(
-  'projects/addToFavoritesAction', async(project_id : String, {rejectWithValue}) => {
+  'projects/addToFavoritesAction', async(project_id : string, {rejectWithValue}) => {
     try {
       const projects= await axios.post('/api/projects/favorites', {project_id});
       return projects.data;
@@ -50,7 +50,7 @@ export const addToFavoritesAction = createAsyncThunk(
 });
 
 export const deleteToFavoritesAction = createAsyncThunk(
-  'projects/deleteToFavoritesAction', async(project_id : String, {rejectWithValue}) => {
+  'projects/deleteToFavoritesAction', async(project_id : string, {rejectWithValue}) => {
     try {
       const projects= await axios.delete(`/api/projects/favorites/${project_id}`);
       return project_id;

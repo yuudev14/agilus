@@ -1,17 +1,17 @@
 export type RegisterFields = {
-  username: String;
-  email: String;
-  password: String;
-  retryPassword: String;
-  firstName: String;
-  lastName: String;
+  username: string;
+  email: string;
+  password: string;
+  retryPassword: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type AddProjectType = {
-  id?: String,
-  project_name: String;
-  color: String;
-  infavorite?: String
+  id?: string,
+  project_name: string;
+  color: string;
+  infavorite?: string
 }
 
 export type ProjectStoreTypes = {
@@ -21,8 +21,8 @@ export type ProjectStoreTypes = {
 }
 
 export type LoginFieldsType = {
-  usernameOrEmail: String;
-  password: String;
+  usernameOrEmail: string;
+  password: string;
 };
 
 export type userType = {
@@ -37,3 +37,8 @@ export type authStateType<T> = {
   loading: boolean;
   errors: object;
 };
+
+export type ProjectCardType = {
+  proj : AddProjectType,
+  project_type: string
+}
