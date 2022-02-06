@@ -10,10 +10,8 @@ interface Payload {
 
 export default (req: Request, res: Response, next: NextFunction) => {
   try {
-    const cookie = req.headers.cookie;
-    const token = cookie && cookie.toString().split("=")[1];
-
-    if (cookie && token) {
+    const token = req.cookies['agilus_jwt'];
+    if (token) {
       const validate = jwt.verify(token, process.env.JWT_SECRET) as Payload;
       res.locals.user = validate.user;
       next();

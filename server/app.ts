@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import { AuthRoutes } from "./services/authController/routes";
 import { ProjectRoutes } from "./services/projectController/routes";
+import cookieParser from 'cookie-parser'
 
 export class App {
   readonly app: Application;
@@ -22,6 +23,7 @@ export class App {
     const middlewares = [
       express.json(),
       express.urlencoded({ extended: true }),
+      cookieParser()
     ];
     middlewares.forEach((middleware) => this.app.use(middleware));
   }
